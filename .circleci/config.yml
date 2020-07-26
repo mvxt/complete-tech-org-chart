@@ -1,0 +1,40 @@
+# Document Version: 1.0
+# author @mvxt
+
+#####################
+# Common Definitions
+#####################
+common:
+  - &project_dir "~/complete-tech-org-chart"
+
+orbs:
+  aws-s3: circleci/aws-s3@1.0.3
+
+############
+# Workflows
+############
+workflows:
+  version: 2.1
+  deploy:
+    jobs:
+      - push-s3:
+          context: static-void-prod
+          filters:
+            branches:
+              only: master
+
+##################
+# Job Definitions
+##################
+version: 2.1
+jobs:
+  push-s3:
+    docker:
+      - image: circleci/python:2.7
+    working_directory: *project_dir
+    steps:
+      - checkout
+      - aws-s3/copy:
+          from: "./complete-tech-org-chart.svg"
+          to: "s3://staticvoid.dev/tech-org-chart/complete-tech-org-chart.svg"
+
