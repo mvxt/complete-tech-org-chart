@@ -36,5 +36,5 @@ jobs:
       - checkout
       - aws-s3/copy:
           from: "./complete-tech-org-chart.svg"
-          to: "s3://staticvoid.dev/tech-org-chart/complete-tech-org-chart.svg"
+          to: "s3://staticvoidacademy.com/tech-org-chart.svg"
 
